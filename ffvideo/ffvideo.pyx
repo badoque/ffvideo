@@ -120,7 +120,10 @@ cdef class VideoStream:
 	def __cinit__(self, filename, frame_size=None, frame_mode="RGB", scale_mode=BICUBIC):
 		self.format_ctx = NULL
 		self.codec_ctx = NULL
-		self.frame = av_frame_alloc()
+		try:
+			self.frame = av_frame_alloc()
+		except Exception:
+			self.frame = avcodec_alloc_frame()
 		self.duration = 0
 		self.width = 0
 		self.height = 0
@@ -286,7 +289,10 @@ cdef class VideoStream:
 		cdef Py_ssize_t buflen
 		cdef SwsContext *img_convert_ctx
 
-		scaled_frame = av_frame_alloc()
+		try:
+			scaled_frame = av_frame_alloc()
+		except Exception:
+			scaled_frame = avcodec_alloc_frame()
 		if scaled_frame == NULL:
 			raise MemoryError("Unable to allocate new frame")
 
