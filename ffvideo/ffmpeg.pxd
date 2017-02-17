@@ -165,7 +165,10 @@ cdef extern from "libavcodec/avcodec.h":
 	int avcodec_open2(AVCodecContext *avctx, AVCodec *codec, AVDictionary **options)
 	int avcodec_decode_video2(AVCodecContext *avctx, AVFrame *picture, int *got_picture_ptr, AVPacket *avpkt) nogil
 	int avpicture_fill(AVPicture *picture, void *ptr, int pix_fmt, int width, int height) nogil
-	AVFrame *av_frame_alloc()
+	try:
+		AVFrame *av_frame_alloc()
+	except Exception:
+		AVFrame *avcodec_alloc_frame()
 	int avpicture_get_size(int pix_fmt, int width, int height)
 	int avpicture_layout(AVPicture* src, int pix_fmt, int width, int height, unsigned char *dest, int dest_size)
 
