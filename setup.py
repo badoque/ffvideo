@@ -21,7 +21,7 @@ setup(
 	long_description=read("README.txt"),
 	ext_modules=[
 		Extension("ffvideo", sources,
-			include_dirs=["/usr/include/ffmpeg"],
+			include_dirs=["/app/vendor/ffmpeg"],
 			libraries=["avformat", "avcodec", "swscale"]
 		),
 	],
